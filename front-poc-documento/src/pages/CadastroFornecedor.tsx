@@ -21,7 +21,7 @@ export default CadastroFornecedor
 
 const teste = 
     {
-        NomeFornecedor: '',
-        URLFornecedor: ''
+        NomeFornecedor: 'text',
+        URLFornecedor: 'number'
     }
 

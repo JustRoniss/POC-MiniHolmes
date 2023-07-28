@@ -1,4 +1,4 @@
-import { ApiOutlined, AuditOutlined, HomeOutlined } from "@ant-design/icons";
+import { ApiOutlined, AuditOutlined, HomeOutlined, SearchOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import React from "react";
 import { NavLink } from "react-router-dom";
@@ -22,6 +22,12 @@ const items = [
     icon: <AuditOutlined />,
     path: "/cadastro-documento",
   },
+  {
+    label: "Buscador",
+    key: "buscador",
+    icon: <SearchOutlined/>,
+    path: "/buscador"
+  }
 ];
 
 const NavbarComponent: React.FC = () => {

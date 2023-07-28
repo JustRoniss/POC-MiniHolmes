@@ -20,7 +20,7 @@ const CadastroDocumento = (props: Props) => {
 export default CadastroDocumento
 
 const teste = {
-    nomeDocumento: '',
+    nomeDocumento: 'string',
     Teste: '',
     OlaMundo: ''
 }

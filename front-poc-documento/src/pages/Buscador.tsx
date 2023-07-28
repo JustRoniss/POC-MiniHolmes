@@ -1,11 +1,30 @@
-import React from 'react'
+import { Input, Space } from "antd";
+import React, { useState } from "react";
+import NavbarComponent from "../components/NavbarComponent";
 
-type Props = {}
+const onSearch = () => {
+  console.log("Você realizou a pesquisa");
+};
 
-const Buscador = (props: Props) => {
+const Buscador = () => {
+  const [nomeFornecedor, setNomeFornecedor] = useState("");
   return (
-    <div>Buscador</div>
-  )
-}
+    <div>
+      <NavbarComponent />
+      <Space.Compact>
+        <Input.Search
+          style={{ width: "440px" }}
+          placeholder="Digite o nome do fornecedor"
+          onChange={(e) => setNomeFornecedor(e.target.value)}
+          allowClear
+          value={nomeFornecedor}
+          size="large"
+          enterButton
+          onSearch={onSearch}
+        />
+      </Space.Compact>
+    </div>
+  );
+};
 
-export default Buscador
+export default Buscador;
