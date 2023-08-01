@@ -10,7 +10,7 @@ const CadastroDocumento = (props: Props) => {
     <NavbarComponent/>
     <div>
         <h1>Amigo estou lá</h1>
-        <FormComponent dados={teste}/>
+        <FormComponent dados={form} identificador="documento" />
     </div>
     </>
     
@@ -19,8 +19,8 @@ const CadastroDocumento = (props: Props) => {
 
 export default CadastroDocumento
 
-const teste = {
-    nomeDocumento: 'string',
-    Teste: '',
-    OlaMundo: ''
+const form = {
+    nomeDocumento: 'Nome do documento',
+    Teste: 'Olá teste',
 }
+
