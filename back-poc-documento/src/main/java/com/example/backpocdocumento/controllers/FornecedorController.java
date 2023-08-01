@@ -1,14 +1,13 @@
 package com.example.backpocdocumento.controllers;
 
 import com.example.backpocdocumento.models.Fornecedor;
+import com.example.backpocdocumento.models.enums.TipoAutenticacao;
 import com.example.backpocdocumento.repository.FornecedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
 
@@ -26,10 +25,26 @@ public class FornecedorController {
         }
 
         @PostMapping("/adicionar-fornecedor")
-        public ResponseEntity<?> criarFornecedor(@RequestBody Fornecedor fornecedor, BindingResult result){
+        public ResponseEntity<?> criarFornecedor(@RequestBody @Validated Fornecedor fornecedor, BindingResult result){
+
+            TipoAutenticacao tipoAutenticacao = fornecedor.getTipoAutenticacao();
+
+            String message = fornecedor.validarTipoAutenticacao(fornecedor);
+
+            if(message != "Ok"){
+                return ResponseEntity.badRequest().body(message);
+            }
+//            if(tipoAutenticacao == tipoAutenticacao.HEADER && fornecedor.getHeaderValue() == null){
+//                return ResponseEntity.badRequest().body("Erro: headerValue é obrigatório quando tipoAutenticao é HEADER");
+//            }
 
             Fornecedor novoFornecedor = fornecedorRepository.save(fornecedor);
             return ResponseEntity.ok(novoFornecedor);
         }
+
+//        @PutMapping("/atualizar-fornecedor")
+//        public ResponseEntity<?> atualizarFornecedor(@RequestBody @Validated Fornecedor fornecedor, BindingResult result){
+//
+//        }
 
 }
