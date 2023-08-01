@@ -1,9 +1,11 @@
 package com.example.backpocdocumento.models;
 
 
+import com.example.backpocdocumento.exceptions.CustomException;
 import com.example.backpocdocumento.models.enums.TipoAutenticacao;
 import jakarta.persistence.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 @Entity
 public class Fornecedor {
@@ -79,16 +81,26 @@ public class Fornecedor {
     }
 
 
-    public static String validarTipoAutenticacao(Fornecedor fornecedor){
 
-        TipoAutenticacao tipoAutenticacao = fornecedor.getTipoAutenticacao();
-        if(tipoAutenticacao == tipoAutenticacao.HEADER && fornecedor.getHeaderValue() == null){
-            return "Erro: headerValue é obrigatório quando tipoAutenticao é HEADER";
-        }else if(tipoAutenticacao == tipoAutenticacao.USUARIO && fornecedor.getUsuario() == null && fornecedor.getSenha() == null){
-            return "Erro: usuario e senha é obrigatório quando tipoAutenticacao é USUARIO";
-        }
 
-        return "ok";
+    public static boolean validarTipoAutenticacao(Fornecedor fornecedor){
+
+        TipoAutenticacao tipoAutenticacao;
+        tipoAutenticacao = fornecedor.getTipoAutenticacao();
+        if(tipoAutenticacao == tipoAutenticacao.HEADER && fornecedor.getHeaderValue() == null)
+            throw new CustomException("Erro: Quando tipo autenticação é HEADER, precisa ser enviado o headerValue junto da requisição\n" +
+                    "Exemplo: 'headerValue': 'exemplo' ");
+
+        if(tipoAutenticacao == tipoAutenticacao.USUARIO && fornecedor.getUsuario() == null && fornecedor.getSenha() == null)
+            throw new CustomException("Erro: Quando tipo autenticação é USUARIO, precisa ser enviado usuario e senha junto da requisição\n" +
+                    "Exemplo: 'usuario': 'ronaldo'\n 'senha': 'exemploSenha'");
+
+        if(tipoAutenticacao == tipoAutenticacao.USUARIO && fornecedor.getUsuario() == null | fornecedor.getSenha() == null)
+            throw new CustomException("Erro: Quando tipo autenticação é USUARIO, precisa ser enviado usuario e senha junto da requisição\n" +
+                    "Exemplo: 'usuario': 'ronaldo'\n 'senha': 'exemploSenha'");
+
+
+        return true;
     }
 
 }

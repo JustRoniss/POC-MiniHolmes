@@ -27,19 +27,13 @@ public class FornecedorController {
         @PostMapping("/adicionar-fornecedor")
         public ResponseEntity<?> criarFornecedor(@RequestBody @Validated Fornecedor fornecedor, BindingResult result){
 
-            TipoAutenticacao tipoAutenticacao = fornecedor.getTipoAutenticacao();
-
-            String message = fornecedor.validarTipoAutenticacao(fornecedor);
-
-            if(message != "Ok"){
-                return ResponseEntity.badRequest().body(message);
+            if(fornecedor.validarTipoAutenticacao(fornecedor)){
+                Fornecedor novoFornecedor = fornecedorRepository.save(fornecedor);
+                return ResponseEntity.ok(novoFornecedor);
+            }else{
+                return ResponseEntity.badRequest().body("Erro inesperado, contate o desenvolvedor");
             }
-//            if(tipoAutenticacao == tipoAutenticacao.HEADER && fornecedor.getHeaderValue() == null){
-//                return ResponseEntity.badRequest().body("Erro: headerValue é obrigatório quando tipoAutenticao é HEADER");
-//            }
 
-            Fornecedor novoFornecedor = fornecedorRepository.save(fornecedor);
-            return ResponseEntity.ok(novoFornecedor);
         }
 
 //        @PutMapping("/atualizar-fornecedor")
