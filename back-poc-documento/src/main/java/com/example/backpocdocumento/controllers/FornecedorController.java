@@ -25,7 +25,7 @@ public class FornecedorController {
             this.fornecedorRepository = fornecedorRepository;
         }
 
-        @PostMapping("/adicionar-fornecedor")
+        @PostMapping("/fornecedor/adicionar")
         public ResponseEntity<?> criarFornecedor(@RequestBody @Validated Fornecedor fornecedor){
 
             if(fornecedor.validarTipoAutenticacao(fornecedor)){
@@ -37,7 +37,7 @@ public class FornecedorController {
 
         }
 
-        @PutMapping("/atualizar-fornecedor")
+        @PutMapping("/fornecedor/atualizar")
         public ResponseEntity<?> atualizarFornecedor(@RequestBody @Validated Fornecedor fornecedorAtualizado){
 
             if(fornecedorAtualizado.validarTipoAutenticacao(fornecedorAtualizado)){
@@ -60,7 +60,7 @@ public class FornecedorController {
 
         }
 
-        @DeleteMapping("/deletar-fornecedor")
+        @DeleteMapping("/fornecedor/deletar")
         public ResponseEntity<?> deletarFornecedor(@RequestBody @Validated Fornecedor fornecedor){
             fornecedorRepository.findById(fornecedor.getId())
                     .orElseThrow(() -> new CustomException("Fornecedor não encontrado pelo ID"));
