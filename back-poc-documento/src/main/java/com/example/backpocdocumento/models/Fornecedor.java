@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 @Entity
 public class Fornecedor {
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,6 +34,9 @@ public class Fornecedor {
     private String senha;
 
 
+    public Long getId() {
+        return id;
+    }
     public String getSistemaOrigem() {
         return sistemaOrigem;
     }
